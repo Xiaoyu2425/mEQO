@@ -84,7 +84,7 @@ visNetwork(nodes,edges) %>%
 
 
 
-<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dnnvqm9hj31520lqq5d.jpg" alt="network2" height="300" width="500" />
+<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dnnvqm9hj31520lqq5d.jpg" alt="network2" height="280" width="500" />
 
 
 
@@ -107,6 +107,8 @@ plot(iterations,fitness)
 ```
 
 Importantly, Instead of worrying too about the absolute optimality (e.g., having computing time doubled to optimize from r = 0.80 to r = 0.81),  it is with greater ecological significance to ask what species combinations are the most robust and important across multiple times of cross-validations. That is also why we recommond constructing a CAN with our approach, especially for a large-scale dataset. 
+
+
 
 ## 5. Partially known functional groups
 
