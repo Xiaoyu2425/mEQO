@@ -84,7 +84,7 @@ visNetwork(nodes,edges) %>%
 
 
 
-<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dnnvqm9hj31520lqq5d.jpg" alt="network2" height="200" width="360" />
+<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dnnvqm9hj31520lqq5d.jpg" alt="network2" height="300" width="500" />
 
 
 
@@ -108,13 +108,13 @@ plot(iterations,fitness)
 
 Importantly, Instead of worrying too about the absolute optimality (e.g., having computing time doubled to optimize from r = 0.80 to r = 0.81),  it is with greater ecological significance to ask what species combinations are the most robust and important across multiple times of cross-validations. That is also why we recommond constructing a CAN with our approach, especially for a large-scale dataset. 
 
-
-
 ##5. Partially known functional groups
 
-mEQO also supports cases where you want to designate certain species to be included in the functional group, when you have *a priori* knowledge of the functional role of that species. Then mEQO can start on the basis of that partially known functional group and continue optimizing by combining other species. In the package, this can be realized by 
+mEQO also supports cases where you want to designate certain species to be included in the functional group, when you have *a priori* knowledge of the functional role of that species. Then mEQO can start on the basis of that partially known functional group and continue optimizing by combining other species. In the package, this can be realized by specifying the argument *pk* for function *EQO_ga()*. As a vector whose length is equal to the total number of species in the microbiome, *pk* indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. EQO will then search on the basis of the provided partial known group without removing the designated species. For instance, in the case where we want to enforce species 4 to be included in the final group, we can simply do
 
-
+```R
+EQO_ga("c",Microbiome,trait,pk=c(0,0,0,1,0,0,0,0))
+```
 
 ## 6. Citation
 
