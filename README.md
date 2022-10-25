@@ -30,7 +30,7 @@ Here we demonstrate a simplest example of using mEQO. The figure below demonstra
 load(mock.rda)
 ```
 
-<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniv5szcj31900u0whr.jpg" alt="composition1" height="400" width="600" />
+<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniv5szcj31900u0whr.jpg" alt="composition1" height="300" width="450" />
 
 To that end, we can run *EQ_ga()* function in *mEQO* package.  
 
@@ -46,7 +46,7 @@ We have provided two different algorithms, i.e. boolean least square (BLS) and g
 
 Here, the best group found by the algorithm is comprised of species 1, 2 and 3, as shown in the figure below. 
 
-<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniyrywvj31900u0dhz.jpg" alt="composition2" height="400" width="600" />
+<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniyrywvj31900u0dhz.jpg" alt="composition2" height="300" width="450" />
 
 For microbiome studies, in addition to obtaining a group of species with strongest statistical power, we may be more interested in understanding which species individuals or species combinations within that group have the highest importance. 
 
