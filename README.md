@@ -26,10 +26,6 @@ devtools::install_github("Xiaoyu2425/mEQO")
 
 Here we demonstrate a simplest example of using mEQO. The figure below demonstrates a mock microbiome dataset, in which relative abundance of single species (color strips) is uncorrelated with the functional trait (black dots). The goal of the algorithm is to identify a group of species whose total abundance is most strongly correlated with the functional trait. 
 
-```R
-load(mock.rda)
-```
-
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniv5szcj31900u0whr.jpg" alt="composition1" height="300" width="450" />
 
 To that end, we can run *EQ_ga()* function in *mEQO* package.  
