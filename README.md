@@ -90,11 +90,11 @@ The major computational challenge for microbiome coarse-graining lies in its com
 
 For BLS algorithm, we leverage a mature commercial mixed interger programming solver, the Gurobi optimizer, to implement EQO. A free license for academic use can be easily acquired on their [website](https://www.gurobi.com). Please note that BLS only works for a continuous trait variable and relatively small-scale problems (e.g., < 200 species). In order to run BLS more efficiently, we strongly recommend reducing the total number of species, e.g., by removing the long tail of singleton species. Applying regularization to the maximal number of species allowed is also helpful to make BLS more efficient. 
 
-GA can be more efficient for larger-scale problems at some expense of accuracy. [GA](https://cran.r-project.org/web/packages/GA/vignettes/GA.html) has been widely used as a successful strategy for stochastic binary searching. However, due to its stochastic nature, GA has been proved to converge to probability. That means although GA is guaranteed to finally converge to the optimal solution, the performance of searching would be dependent on number of iterations. Below is the performance of EQO on simulated datasets.
+GA can be more efficient for larger-scale problems at some expense of accuracy. [GA](https://cran.r-project.org/web/packages/GA/vignettes/GA.html) has been widely used as a successful strategy for stochastic binary searching with convergence in probability. However, the rate of convergence is dependent on size and structure of spefific datasets. Below is an illustration of the accuracy of EQO at different number of iterations with simulated microbiome datasets. 
 
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7hawyk0hrj30pq0roq4r.jpg" alt="截屏2022-10-24 下午9.59.06" height="400" width="380" />
 
-You can determine the optimal number of iterations for your specific datasets by examining the saturation of fitness against number of iterations, for example
+You can determine the optimal number of iterations for your specific datasets, for example
 
 ```R
 iterations<-c(100,200,500,1000)
