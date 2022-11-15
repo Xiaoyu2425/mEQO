@@ -53,7 +53,7 @@ EQO_bls<-function(M,y,Nmax,K){
 	}
 	model$quadcon <- qcs
 	
-	result <- gurobi::gurobi(model)
+	result <- functionWithgurobi(model)
 	
 	members<-which(result$x[-1][1:n]>0)
 		
@@ -63,4 +63,14 @@ EQO_bls<-function(M,y,Nmax,K){
 	R2<-cor(abundance,yn)^2
 	return(list(x=x,members=members,abundance=abundance,y=R2))
 }
+
+functionWithgurobi<-function(model) {
+   if (!requireNamespace("gurobi", quietly = TRUE)) {
+        warning("The gurobi package must be installed to use this functionality")
+        return(NULL)
+    }
+    gurobi::gurobi(model)
+}
+
+
 

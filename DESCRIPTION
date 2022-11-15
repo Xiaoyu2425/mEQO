@@ -14,5 +14,4 @@ Imports:
 	doParallel,
 	data.table,
 	reshape2,
-	Matrix,
-	gurobi
+	Matrix
