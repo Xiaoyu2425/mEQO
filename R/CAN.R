@@ -92,7 +92,8 @@ CAN<-function(method,M,y,fraction,tm,K,pk,Nmax,amin,amax,maxIter=500,popSize=200
 			seed<-sample(1:nrow(M),size)
 			M.train<-M[seed,]
 			M.test<-M[-seed,]
-			out<-EQO_ga("u",M.train,1,pk,Nmax,amin,amax,maxIter,maxIter,popSize,parallel,monitor)
+			y.train<-1
+			out<-EQO_ga("u",M.train,y.train,pk,Nmax,amin,amax,maxIter,popSize,parallel,monitor)
 			s<-rowSums(cbind(rep(0,nrow(M.test)),M.test[,which(out$x==1)]))
 			y.xv<-mean(s)/sd(s)
 			out.xv<-data.table::data.table(taxa=out$members,perform=y.xv)
