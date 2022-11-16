@@ -10,19 +10,23 @@ Unsupervised microrbiome coarse-graining can be generalized using the optimizati
 
 In short, EQO finds an assemblage of species which as a whole is most strongly indicative to a trait variable, even if the individual species may be decoupled from the trait variable. This marks a fundamental distinction between EQO and previous clustering algorithms. Previous clustering algorithms usually search for a group of species that are intercorrelated with each other, while EQO finds species that are **"consistent but complement each other"**, so that they as a whole are strongly coupled with a trait variable. Full details about the mathematical framework, statistical interpretations and algorithmic design can be found in this [manuscript](https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1).
 
-
-
 ## 2. Installation
 
-*mEQO* is available at GitHub with 
+*mEQO* can be installed by 
 
 ```R
 devtools::install_github("Xiaoyu2425/mEQO")
 ```
 
-Note: This R package provides two strategies to implement EQO: boolean least square (BLS) and genetic algorithm (GA). If you want to implement EQO with the boolean least square (BLS) algorithm, a Gurobi optimizer and its R interface will be required as dependencies. A free license for academic use can be easily acquired on their [website](https://www.gurobi.com). An installation guide can be found [here](https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation_guide.html). 
+Note: These R packages will be automatically imported as dependencies of mEQO: GA, doParallel, data.table, reshape2. Should errors related to R version occur in importing dependencies, you may have to install some dependencies manually. 
 
-## 3. Example 
+If you want to implement EQO with the boolean least square (BLS) algorithm, a Gurobi optimizer and its R interface will be required as dependencies. A free license for academic use can be easily acquired on their [website](https://www.gurobi.com). An installation guide can be found [here](https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation_guide.html). 
+
+## 3. Input data format
+
+Input for EQO is simply the microbiome compositon and the functional/environmental variable. For the microbiome, rows are samples and columns are taxa. If you are looking for a functional group whose relative abundance is stable across samples, then no functional/environmental variable will be needed. If you your functional/environmental variable is categorical (e.g., different types of diseases), then you need to provide a binary matrix, whose rows are samples and columns are categories. Samples belong to a category are assigned one, otherwise zero. 
+
+## 4. Example 
 
 Here we demonstrate a simplified example of using mEQO. The figure below demonstrates a mock microbiome dataset, in which the relative abundance of single species (color strips) is uncorrelated with a functional trait (black dots). The goal of the algorithm is to identify a group of species whose total abundance is most strongly correlated with the functional trait. 
 
@@ -84,7 +88,7 @@ visNetwork(nodes,edges) %>%
 
 
 
-## 4. Additional discussion
+## 5. Additional discussion
 
 The major computational challenge for microbiome coarse-graining lies in its combinatorial optimization nature, which is still one of the major open challenges in the modern operational research. In the *mEQO* package, we have tackled this challgenge with BLS and GA as two alternative approaches. 
 
@@ -106,7 +110,7 @@ Importantly, Instead of focusing on absolute optimality (e.g., having computing 
 
 
 
-## 5. Partially known functional groups
+##6. Partially known functional groups
 
 mEQO also supports cases where you want to designate certain species to be included in the functional group, when you have *a priori* knowledge of the functional role of that species. Then mEQO can start on the basis of that partially known functional group and continue optimizing by combining other species. In the package, this can be implemented by specifying the argument *pk* for function *EQO_ga()*. As a vector whose length is equal to the total number of species in the microbiome, *pk* indicates partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. EQO will then search on the basis of the provided partially known group without removing the designated species. For instance, in the case where we want to ensure species 4 is included in the final group, we would include the following argument:
 
@@ -116,7 +120,7 @@ EQO_ga("c",Microbiome,trait,pk=c(0,0,0,1,0,0,0,0))
 
 
 
-## 6. Citation
+## 7. Citation
 
 Please cite [mEQO](https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1.abstract) as an R package, as well as the following dependencies: [GA](https://cran.r-project.org/web/packages/GA/index.html); [doParallel](https://cran.r-project.org/web/packages/doParallel/index.html); [data.table](https://cran.r-project.org/web/packages/data.table/index.html); [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html).
 
