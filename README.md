@@ -94,7 +94,7 @@ The major computational challenge for microbiome coarse-graining lies in its com
 
 For the BLS algorithm, we leverage a mature commercial mixed interger programming solver, the Gurobi optimizer, to implement EQO. Please note that BLS only works for a continuous trait variable and relatively small-scale problems (e.g., < 300 species). In order to run BLS more efficiently, we strongly recommend reducing the total number of species, e.g., by removing the long tail of singleton species. Applying regularization to the maximal number of species allowed is also important to make BLS more efficient. 
 
-GA can be more efficient for larger-scale problems. [GA](https://cran.r-project.org/web/packages/GA/vignettes/GA.html) has been widely used as a successful strategy for stochastic binary searching with convergence in probability. However, the rate of convergence is dependent on size and structure of spefific datasets. Below is an illustration of the accuracy of EQO at different number of iterations with simulated microbiome datasets. 
+GA can be more efficient for larger-scale problems. [GA](https://cran.r-project.org/web/packages/GA/vignettes/GA.html) has been widely used as a successful strategy for stochastic binary searching with convergence in probability. However, the rate of convergence is dependent on size and structure of spefific datasets. Below is an illustration of the accuracy of GA at different number of iterations with simulated microbiome datasets. 
 
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7hawyk0hrj30pq0roq4r.jpg" alt="截屏2022-10-24 下午9.59.06" height="400" width="380" />
 
