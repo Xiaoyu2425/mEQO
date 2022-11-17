@@ -3,3 +3,8 @@
 export(CAN)
 export(EQO_bls)
 export(EQO_ga)
+import(GA)
+import(Matrix)
+import(data.table)
+import(doParallel)
+import(reshape2)
