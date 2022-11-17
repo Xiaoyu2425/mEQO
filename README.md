@@ -24,7 +24,7 @@ If you want to implement EQO with the boolean least square (BLS) algorithm, a Gu
 
 ## 3. Input data format
 
-Input for EQO is simply the microbiome compositon and the functional/environmental variable. For the microbiome, rows are samples and columns are taxa. If you are looking for a functional group whose relative abundance is stable across samples, then no functional/environmental variable will be needed. If you your functional/environmental variable is categorical (e.g., different types of diseases), then you need to provide a binary matrix, whose rows are samples and columns are categories. Samples belong to a category are assigned one, otherwise zero. 
+Input for EQO is simply the microbiome compositon and the functional/environmental variable. For the microbiome, rows are samples and columns are taxa. If you are looking for a functional group whose relative abundance is stable across samples, then no functional/environmental variable will be needed. If your functional/environmental variable is categorical (e.g., different types of diseases), then you need to provide a binary matrix, whose rows are samples and columns are categories. Samples belong to a category are assigned one, otherwise zero. 
 
 ## 4. Example 
 
@@ -110,7 +110,7 @@ Importantly, Instead of focusing on absolute optimality (e.g., having computing 
 
 
 
-##6. Partially known functional groups
+## 6. Partially known functional groups
 
 mEQO also supports cases where you want to designate certain species to be included in the functional group, when you have *a priori* knowledge of the functional role of that species. Then mEQO can start on the basis of that partially known functional group and continue optimizing by combining other species. In the package, this can be implemented by specifying the argument *pk* for function *EQO_ga()*. As a vector whose length is equal to the total number of species in the microbiome, *pk* indicates partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. EQO will then search on the basis of the provided partially known group without removing the designated species. For instance, in the case where we want to ensure species 4 is included in the final group, we would include the following argument:
 
