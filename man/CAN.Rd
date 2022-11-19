@@ -22,11 +22,11 @@ CAN(
 )
 }
 \arguments{
-\item{method}{A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA, \code{"ga_d"} for a discrete trait with GA and \code{"ga_u"} for a uniform trait with GA.}
+\item{method}{A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA and \code{"ga_u"} for a uniform trait with GA.}
 
 \item{M}{A matrix of taxa in the microbiome (samples as rows and taxa as columns).}
 
-\item{y}{A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories.}
+\item{y}{A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}.}
 
 \item{fraction}{A number (default 0.5) indicating the fraction of samples to be randomly selected in the training set.}
 

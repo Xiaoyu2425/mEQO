@@ -23,7 +23,7 @@ EQO_ga(
 
 \item{M}{A matrix of taxa in the microbiome (samples as rows and taxa as columns). Rownames and colnames should be specified.}
 
-\item{y}{A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories.}
+\item{y}{A vector or matrix of trait. y is not needed when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories. Samples belonging to a category is assigned 1, otherwise 0. An example for the discrete case can be found in \code{trait_d}.}
 
 \item{pk}{A binary vector indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. Length of this vector should be equal to the total number of species in the microbiome. EQO will then search on the basis of the provided partial known group without removing the designated species.}
 
@@ -33,7 +33,7 @@ EQO_ga(
 
 \item{amax}{A number (default 1) specifying the upper bound of average relative abundance of the final group across all samples (only applied to a uniform trait to avoid trivial solutions).}
 
-\item{maxIter}{A number (default 500) for GA package, specifying the maximum number of iterations to run before the GA search is halted.}
+\item{maxIter}{A number (default 500) for GA package, specifying the number of generations for GA.}
 
 \item{popSize}{A number (default 200) for GA package, specifying the initial population size for the GA search.}
 
@@ -45,10 +45,10 @@ EQO_ga(
 A list with the following components.
 \itemize{
 \item fitness - optimized value for the objective function in GA
-\item x - A binary numeric vector specifying presence/absence of taxa in the final group
-\item members - A character vector Names of taxa selected in the final group
+\item x - A binary vector specifying presence(1)/absence(0) of taxa in the final group
+\item members - A character vector for names of taxa selected in the final group
 \item abundance - A numeric vector with relative abundance of the final group in each sample.
-\item performance - A number of the group performance. It equals to coefficient of variation when the trait is uniform, for which a smaller value implies higher stability. It eqauls to correlation coefficient when the trait is continuous, for which a larger absolute value implies stronger association. It equals to generalized coefficient of determination when the trait is discrete, for which a larger value implies better discrimination across different categories.
+\item performance - A number indicating the statistical performance of the group. It is equal to the coefficient of variation when the trait is uniform, for which a smaller value implies higher stability. It is equal to Pearson's correlation coefficient when the trait is continuous, for which a larger absolute value implies stronger association. It is equal to the generalized coefficient of determination when the trait is discrete, for which a larger value implies better discrimination across different categories.
 }
 }
 \description{

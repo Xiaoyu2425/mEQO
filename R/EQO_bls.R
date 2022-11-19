@@ -18,8 +18,10 @@
 #' 
 #' @details The BLS-based algorithm searches for a group of species
 #' which as a whole is most strongly correlated with a continuous functional trait variable.    
-#' For a uniform or discrete trait variable, or larger-scale problems 
-#' (e.g., number of samples > 200 or number of species > 200) please turn to \code{EQO_ga()}.
+#' To run BLS more effciently, it is recommended to reduce the total number of taxa
+#' by removing the rare singletons (e.g., < 300 taxa in the final input) and apply  
+#' strong regularization (e.g., Nmax<20).
+#' 
 #' 
 #' @export
 

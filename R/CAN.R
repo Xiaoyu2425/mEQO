@@ -5,9 +5,9 @@
 #' and evaluates the performance of the group with the test set. Finally, the performance of 
 #' all taxa selected in any group is aggregated and normalized into its relative importance.
 #' 
-#' @param method A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA, \code{"ga_d"} for a discrete trait with GA and \code{"ga_u"} for a uniform trait with GA.
+#' @param method A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA and \code{"ga_u"} for a uniform trait with GA.
 #' @param M A matrix of taxa in the microbiome (samples as rows and taxa as columns).
-#' @param y A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories.
+#' @param y A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. 
 #' @param fraction A number (default 0.5) indicating the fraction of samples to be randomly selected in the training set.
 #' @param tm A number (default 20) indicating the times of cross-validation to perform.
 #' @param K (for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer.
@@ -50,7 +50,7 @@ CAN<-function(method,M,y,fraction,tm,K,pk,Nmax,amin,amax,maxIter=500,popSize=200
 			y.train<-y[seed]
 			M.test<-M[-seed,]
 			y.test<-y[-seed]
-			out<-EQ_bls(M.train,y.train,Nmax,K)
+			out<-EQO_bls(M.train,y.train,Nmax,K)
 			s<-rowSums(cbind(rep(0,nrow(M.test)),M.test[,which(out$x==1)]))
 			y.xv<-cor(s,y.test)
 			out.xv<-data.table::data.table(taxa=out$members,perform=y.xv)
@@ -66,24 +66,6 @@ CAN<-function(method,M,y,fraction,tm,K,pk,Nmax,amin,amax,maxIter=500,popSize=200
 			out<-EQO_ga("c",M.train,y.train,pk,Nmax,amin,amax,maxIter,popSize,parallel,monitor)
 			s<-rowSums(cbind(rep(0,nrow(M.test)),M.test[,which(out$x==1)]))
 			y.xv<-cor(s,y.test)
-			out.xv<-data.table::data.table(taxa=out$members,perform=y.xv)
-			return(out.xv)
-		}
-		
-		if(method=="ga_d"){
-			sizes<-round((colSums(y)/sum(colSums(y)))[ncol(y)-1] * size,digits=0)
-			sizes<-c(sizes,size-sizes)
-			seed<-c()
-			for (i in 1:ncol(y)){seed<-c(seed,sample(which(y[,i]==1),sizes[i]))}
-			M.train<-M[seed,]
-			y.train<-y[seed,]
-			M.test<-M[-seed,]
-			y.test<-y[-seed,]
-			out<-EQO_ga("d",M.train,y.train,pk,Nmax,amin,amax,maxIter,popSize,parallel,monitor)
-			s<-rowSums(cbind(rep(0,nrow(M.test)),M.test[,which(out$x==1)]))
-			L.test<-matrix(0,nrow=ncol(y.test),ncol=ncol(y.test))
-			diag(L.test)<-1/sqrt(colSums(y.test))
-			y.xv<-(t(s) %*% y.test %*% L.test %*% L.test %*% t(y.test) %*% s)/(t(s) %*% s)
 			out.xv<-data.table::data.table(taxa=out$members,perform=y.xv)
 			return(out.xv)
 		}
