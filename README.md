@@ -35,9 +35,9 @@ EQO_bls(Microbiome,trait) # implemented by BLS
 EQO_ga("c",Microbiome,trait) # or, implemented by GA
 ```
 
-In the above example, "c" indicates a continuous trait variable. In addition, `EQO_ga()` can also support a trait variable that is discrete or uniform. You can specify "d" for a discrete trait variable (e.g., healthy or diseased samples) or "u" for a uniform trait variable (e.g., stable community composition across samples).
-
 We have provided two different algorithms for implementing EQO, each with its advantages and disadvantages: boolean least square (BLS) and genetic algorithm (GA). BLS works very accurately for smaller-scale problems with a continuous variable (e.g., < 300 species). GA can be more efficient for larger-scale datasets, whose accuracy depends on number of iterations. Please refer to "additional discussion" for full details. 
+
+In the above example of GA, "c" indicates a continuous trait variable. In addition, `EQO_ga()` can also support a trait variable that is discrete or uniform. You can specify "d" for a discrete trait variable (e.g., healthy or diseased samples) or "u" for a uniform trait variable (e.g., stable community composition across samples).
 
 Here, the best group of species found by the algorithm that is coupled to the trait variable is comprised of species 1, 2 and 3, as shown in the figure below. 
 
