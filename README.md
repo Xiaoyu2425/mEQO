@@ -18,9 +18,7 @@ In short, EQO finds an assemblage of species which as a whole is most strongly i
 devtools::install_github("Xiaoyu2425/mEQO")
 ```
 
-Note: These R packages will be automatically imported as dependencies of mEQO: GA, doParallel, data.table, reshape2. Should errors related to R version occur in importing dependencies, you may have to install some dependencies manually. 
-
-If you want to implement EQO with the boolean least square (BLS) algorithm, a Gurobi optimizer and its R interface will be required as dependencies. A free license for academic use can be easily acquired on their [website](https://www.gurobi.com). An installation guide can be found [here](https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation_guide.html). 
+Note: These R packages will be automatically imported as dependencies of mEQO: GA, doParallel, data.table, reshape2. In addition, if you want to implement EQO with the boolean least square (BLS) algorithm, a Gurobi optimizer and its R interface will be required as dependencies. A free license for academic use can be easily acquired on their [website](https://www.gurobi.com). An installation guide can be found [here](https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation_guide.html). 
 
 ## 3. Example 
 
