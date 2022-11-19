@@ -28,7 +28,7 @@ Here we demonstrate the use of mEQO with this example of simplified dataset. As 
 
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dniv5szcj31900u0whr.jpg" alt="composition1" height="300" width="450" />
 
-To that end, we can one of the functions below to implement EQO.  
+To that end, we can run one of the functions below to implement EQO.  
 
 ```R
 EQO_bls(Microbiome,trait) # implemented by BLS
