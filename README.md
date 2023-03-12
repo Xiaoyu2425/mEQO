@@ -47,7 +47,7 @@ Firstly, you can apply regularization to the algorithm by specifying *Nmax* as t
 
 ```R
 aic<-sapply(1:5,function(N){
-	assemblage<-EQO_bls("c",Microbiome,trait,Nmax=N)$abundance
+	assemblage<-EQO_bls(Microbiome,trait,Nmax=N)$abundance
 	return(AIC(lm(trait~assemblage))+2*(N-1))
 })
 ```
@@ -57,7 +57,7 @@ aic<-sapply(1:5,function(N){
 Secondly, we recommend illustrating your functional group with a Cross-validation-based Aggregation Network (CAN). We provide a `CAN()` function in the *mEQO* package for that. In short, this function performs the following: (1) splitting your original dataset into a test set and a validation set, (2) performing EQO with the test set and cross-validation with the validation set, 3) evaluating relative importance of individual species or pairs by repeating (1) and (2) for multiple times. Remarkably, CAN can illustrate patterns that are very different from a traditional association network such as a co-occurrence network. In CAN, each nodes still denotes a species, while the weight of an edge indicates the strength of cross-validated correlation with the functional trait when the two connected species are coarse-grained in a group. In other words, species nodes connected by a stronger edge are more likely to co-exist in a functionally cohesive group. As is shown in the following figure, species 1, 2, and 3 stand out from the cross-validation as a highly interconnected module, strongly suggesting their emergent ecological role as a group together. 
 
 ```R
-can<-CAN("ga_c",Microbiome,trait,maxIter=100)
+can<-CAN("ga_c",Microbiome,trait,maxIter=100,tm=10)
 
 nodes<-can$nodes
 nodes$color.background=c("#CF0A0A","#F8C957","#125D98","#928B8B","#C65D7B","#4E944F","#5EA3A6","#DD6B4D")
@@ -80,7 +80,7 @@ visNetwork(nodes,edges) %>%
 Finally, `EQO_ga()` also supports cases where you want to designate certain species to be included in the functional group, when you have *a priori* knowledge of the functional role of that species. Then mEQO can start on the basis of that partially known functional group and continue optimizing by combining other species. In the package, this can be implemented by specifying the argument *pk* for function `EQO_ga()`. As a vector whose length is equal to the total number of species in the microbiome, *pk* indicates partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. EQO will then search on the basis of the provided partially known group without removing the designated species. For instance, in the case where we want to ensure species 4 is included in the final group, we would include the following argument:
 
 ```R
-EQO_ga("c",Microbiome,trait,pk=c(0,0,0,1,0,0,0,0))
+EQO_ga("c",Microbiome,trait,pk=c(0,0,0,1,0,0,0,0),maxIter=100)
 ```
 
 ## 4. Important notes on algorithms
