@@ -6,7 +6,7 @@
 
 EQO finds an assemblage of species which as a whole is most strongly indicative to a trait variable, even if the individual species therein is not. In contrast to most clustering algorithms that usually search for a group of species intercorrelated with each other, EQO finds species that are **"consistent but complement each other"**, so that they as a whole are strongly coupled with a trait variable. Full details about the mathematical framework, statistical interpretations and algorithmic design can be found in this [manuscript](https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1).
 
-EQO mainly serves as a "hypothesis generating tool" for microbiome studies. By pinpointing a group of species with strongest statistical association with a functional readout (substrate consumption, metabolite production, pathogen inhibition, etc.), EQO can inform further mechanistic studies regarding the physiological properties and functional roles of the predicted species. This can be in particular useful for systems where annotation-based approaches are limited.
+EQO mainly serves as a "hypothesis generating tool" for microbiome studies. By pinpointing a group of species with strongest statistical association with a functional readout (substrate consumption, metabolite production, pathogen inhibition, etc.), EQO can inform further mechanistic studies regarding physiological properties and functional roles of the predicted species. This can be in particular useful for systems where annotation-based approaches are limited.
 
 ## 2. Installation
 
