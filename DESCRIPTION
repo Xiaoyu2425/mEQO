@@ -10,8 +10,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0.9000
 LazyData: true
 Imports: GA, doParallel, data.table, reshape2, Matrix, visNetwork
-NeedsCompilation: no
-Packaged: 2023-01-29 15:34:38 UTC; Xiaoyu Shan
 Author: Xiaoyu Shan [aut, cre]
 Maintainer: Xiaoyu Shan <xshan@mit.edu>
 Depends: R (>= 3.5.0)

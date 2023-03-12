@@ -13,7 +13,7 @@ EQO_bls(M, y, Nmax = 5, K = 100)
 
 \item{Nmax}{A number (default 10) specifying the maximal number of taxa allowed in the final group.}
 
-\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K in general favors faster optimization by forcing the generated group to have higher relative abundance.}
+\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer.}
 }
 \value{
 A list with the following components.

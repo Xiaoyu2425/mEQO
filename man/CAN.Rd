@@ -32,7 +32,7 @@ CAN(
 
 \item{tm}{A number (default 20) indicating the times of cross-validation to perform.}
 
-\item{K}{(for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K in general favors faster optimization by forcing the generated group to have higher relative abundance.}
+\item{K}{(for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer.}
 
 \item{pk}{(for \code{"ga_c"},\code{"ga_d"} or \code{"ga_u"}) A binary vector indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. Length of this vector should be equal to the total number of species in the microbiome. EQO will then search on the basis of the provided partial known group without removing the designated species.}
 
