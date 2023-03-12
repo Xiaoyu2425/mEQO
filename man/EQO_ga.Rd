@@ -5,13 +5,13 @@
 \title{Ensemble Quotient Optimization with genetic algorithm (GA)}
 \usage{
 EQO_ga(
-  pattern,
+  pattern = NULL,
   M,
-  y,
-  pk,
-  Nmax,
-  amin,
-  amax,
+  y = NULL,
+  pk = NULL,
+  Nmax = NULL,
+  amin = 0,
+  amax = 1,
   maxIter = 500,
   popSize = 200,
   parallel = TRUE,
@@ -21,7 +21,7 @@ EQO_ga(
 \arguments{
 \item{pattern}{A character speficifying the type of trait, including \code{"u"} for a uniform trait, \code{"c"} for a continuous trait and \code{"d"} for a discrete trait.}
 
-\item{M}{A matrix of taxa in the microbiome (samples as rows and taxa as columns). Rownames and colnames should be specified.}
+\item{M}{A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns). Rownames and colnames should be specified.}
 
 \item{y}{A vector or matrix of trait. y is not needed when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories. Samples belonging to a category is assigned 1, otherwise 0. An example for the discrete case can be found in \code{trait_d}.}
 
@@ -54,4 +54,17 @@ A list with the following components.
 \description{
 This function performs GA-based Ensemble Quotient Optimization
 towards annotation-free microbiome coarse-graining.
+}
+\examples{
+# This may take several minutes.
+EQO_ga("c",Microbiome,trait,maxIter = 100)
+EQO_ga("d",Microbiome,trait_d,maxIter = 100)
+EQO_ga("u",Microbiome,maxIter = 100)
+}
+\references{
+\link{https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1}
+}
+\seealso{
+\link{EQO_bls},
+\link{CAN},
 }

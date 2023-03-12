@@ -5,16 +5,16 @@
 \title{Cross validation-based Aggregation Network (CAN)}
 \usage{
 CAN(
-  method,
+  method = NULL,
   M,
-  y,
-  fraction,
-  tm,
-  K,
-  pk,
-  Nmax,
-  amin,
-  amax,
+  y = NULL,
+  fraction = 0.5,
+  tm = 20,
+  K = 100,
+  pk = NULL,
+  Nmax = 5,
+  amin = 0,
+  amax = 1,
   maxIter = 500,
   popSize = 200,
   parallel = TRUE,
@@ -24,7 +24,7 @@ CAN(
 \arguments{
 \item{method}{A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA and \code{"ga_u"} for a uniform trait with GA.}
 
-\item{M}{A matrix of taxa in the microbiome (samples as rows and taxa as columns).}
+\item{M}{A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns).}
 
 \item{y}{A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}.}
 
@@ -32,7 +32,7 @@ CAN(
 
 \item{tm}{A number (default 20) indicating the times of cross-validation to perform.}
 
-\item{K}{(for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer.}
+\item{K}{(for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K in general favors faster optimization by forcing the generated group to have higher relative abundance.}
 
 \item{pk}{(for \code{"ga_c"},\code{"ga_d"} or \code{"ga_u"}) A binary vector indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. Length of this vector should be equal to the total number of species in the microbiome. EQO will then search on the basis of the provided partial known group without removing the designated species.}
 
@@ -63,4 +63,12 @@ This function splits the microbiome dataset into a training set and a test set.
 Then it generates a group of taxa by Ensemble Quotient Optimization for the training set
 and evaluates the performance of the group with the test set. Finally, the performance of
 all taxa selected in any group is aggregated and normalized into its relative importance.
+}
+\examples{
+# This may take several minutes.
+can = CAN("ga_c",Microbiome,trait,maxIter=100)
+}
+\seealso{
+\link{EQO_ga},
+\link{EQO_bls},
 }

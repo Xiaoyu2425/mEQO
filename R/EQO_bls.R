@@ -3,7 +3,7 @@
 #' This function performs BLS-based Ensemble Quotient Optimization 
 #' towards annotation-free microbiome coarse-graining.  
 #' 
-#' @param M A matrix of taxa in the microbiome (samples as rows and taxa as columns).
+#' @param M A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns).
 #' @param y A vector of a continuous functional trait (length as number of samples). 
 #' @param Nmax A number (default 10) specifying the maximal number of taxa allowed in the final group.
 #' @param K A sufficiently large number (default 100) required for linearization by the optimizer.
@@ -22,14 +22,26 @@
 #' by removing the rare singletons (e.g., < 300 taxa in the final input) and apply  
 #' strong regularization (e.g., Nmax<20).
 #' 
+#' @seealso 
+#' [EQO_ga],
+#' [CAN],
+#' [CAN_plot]
+#' 
+#' @references 
+#' [https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1]
 #' 
 #' @export
+#' 
+#' @examples 
+#' # This may take several minutes.
+#' EQO_bls(Microbiome,trait)
 
-EQO_bls<-function(M,y,Nmax,K){
+EQO_bls<-function(M,y,Nmax=5,K=100){
 	
-	if(missing(Nmax)){Nmax<-5}
-	if(missing(K)){K<-100}
+	# if(missing(Nmax)){Nmax<-5}
+	# if(missing(K)){K<-100}
 	
+  M = as.matrix(M)
 	m<-nrow(M)
 	yn<-y/mean(y)
 	n<-ncol(M)

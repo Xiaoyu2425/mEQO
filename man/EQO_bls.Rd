@@ -4,16 +4,16 @@
 \alias{EQO_bls}
 \title{Ensemble Quotient Optimization with a boolean least square (BLS) algorithm}
 \usage{
-EQO_bls(M, y, Nmax, K)
+EQO_bls(M, y, Nmax = 5, K = 100)
 }
 \arguments{
-\item{M}{A matrix of taxa in the microbiome (samples as rows and taxa as columns).}
+\item{M}{A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns).}
 
 \item{y}{A vector of a continuous functional trait (length as number of samples).}
 
 \item{Nmax}{A number (default 10) specifying the maximal number of taxa allowed in the final group.}
 
-\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer.}
+\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K in general favors faster optimization by forcing the generated group to have higher relative abundance.}
 }
 \value{
 A list with the following components.
@@ -34,4 +34,16 @@ which as a whole is most strongly correlated with a continuous functional trait 
 To run BLS more effciently, it is recommended to reduce the total number of taxa
 by removing the rare singletons (e.g., < 300 taxa in the final input) and apply
 strong regularization (e.g., Nmax<20).
+}
+\examples{
+# This may take several minutes.
+EQO_bls(Microbiome,trait)
+}
+\references{
+\link{https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1}
+}
+\seealso{
+\link{EQO_ga},
+\link{CAN},
+\link{CAN_plot}
 }

@@ -4,7 +4,7 @@
 #' towards annotation-free microbiome coarse-graining.  
 #' 
 #' @param pattern A character speficifying the type of trait, including \code{"u"} for a uniform trait, \code{"c"} for a continuous trait and \code{"d"} for a discrete trait.
-#' @param M A matrix of taxa in the microbiome (samples as rows and taxa as columns). Rownames and colnames should be specified.
+#' @param M A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns). Rownames and colnames should be specified.
 #' @param y A vector or matrix of trait. y is not needed when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. y is a binary matrix when pattern is \code{"d"} whose rows are samples and columns are categories. Samples belonging to a category is assigned 1, otherwise 0. An example for the discrete case can be found in \code{trait_d}.
 #' @param pk A binary vector indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. Length of this vector should be equal to the total number of species in the microbiome. EQO will then search on the basis of the provided partial known group without removing the designated species.
 #' @param Nmax A number (default the total number of species) for regularization, specifying the maximal number of taxa allowed in the final group.
@@ -22,16 +22,29 @@
 #'   \item abundance - A numeric vector with relative abundance of the final group in each sample.
 #'   \item performance - A number indicating the statistical performance of the group. It is equal to the coefficient of variation when the trait is uniform, for which a smaller value implies higher stability. It is equal to Pearson's correlation coefficient when the trait is continuous, for which a larger absolute value implies stronger association. It is equal to the generalized coefficient of determination when the trait is discrete, for which a larger value implies better discrimination across different categories.
 #' }
+#' 
+#' @seealso 
+#' [EQO_bls],
+#' [CAN],
+#' 
 #' @export
+#' 
+#' @references 
+#' [https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1]
+#' 
+#' @examples 
+#' # This may take several minutes.
+#' EQO_ga("c",Microbiome,trait,maxIter = 100)
+#' EQO_ga("d",Microbiome,trait_d,maxIter = 100)
+#' EQO_ga("u",Microbiome,maxIter = 100)
 
-EQO_ga<-function(pattern,M,y,pk,Nmax,amin,amax,maxIter=500,popSize=200,parallel=TRUE,monitor=plot){
+EQO_ga<-function(pattern=NULL,M,y=NULL,pk=NULL,Nmax=NULL,amin=0,amax=1,maxIter=500,popSize=200,parallel=TRUE,monitor=plot){
 	
 	if(missing(y)){y<-1; pattern<-"u"}
 	if(missing(pk)){pk<-rep(0,ncol(M))}
 	if(missing(Nmax)){Nmax<-ncol(M)}
-	if(missing(amin)){amin<-0}
-	if(missing(amax)){amax<-1}
 
+  M = as.matrix(M)
 	an<-colMeans(M)
 	m<-nrow(M)
 	n<-ncol(M)
@@ -98,13 +111,13 @@ EQO_ga<-function(pattern,M,y,pk,Nmax,amin,amax,maxIter=500,popSize=200,parallel=
 	}
 
 	if(pattern=="d"){
-		summary(GA)
-		x<-as.numeric(GA@solution)
-		fitness<-max(GA@fitness[!is.na(GA@fitness)])
-		members<-colnames(M)[GA@solution==1]
-		abundance<-rowSums(cbind(rep(0,m),rep(0,m),M[,GA@solution==1]))
-		s<-abundance-mean(abundance)
-		R2<-(t(s) %*% y0 %*% L %*% L %*% t(y0) %*% s)/(t(s) %*% s)
+	  solution1 = GA@solution[1,]
+	  x<-as.numeric(solution1)
+	  fitness<-max(GA@fitness[!is.na(GA@fitness)])
+	  members<-colnames(M)[solution1==1]
+	  abundance<-rowSums(cbind(rep(0,m),rep(0,m),M[,solution1==1]))
+	  s<-abundance-mean(abundance)
+	  R2<-(t(s) %*% y0 %*% L %*% L %*% t(y0) %*% s)/(t(s) %*% s)
 		return(list(fitness=fitness,x=x,members=members,abundance=abundance,performance=R2))
 	}
 

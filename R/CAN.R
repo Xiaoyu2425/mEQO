@@ -6,7 +6,7 @@
 #' all taxa selected in any group is aggregated and normalized into its relative importance.
 #' 
 #' @param method A string speficifying the algorithm to use for EQO. Possible options include \code{"bls_c"} for a continuous variable with BLS, \code{"ga_c"} for a continuous variable with GA and \code{"ga_u"} for a uniform trait with GA.
-#' @param M A matrix of taxa in the microbiome (samples as rows and taxa as columns).
+#' @param M A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns).
 #' @param y A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. 
 #' @param fraction A number (default 0.5) indicating the fraction of samples to be randomly selected in the training set.
 #' @param tm A number (default 20) indicating the times of cross-validation to perform.
@@ -25,19 +25,23 @@
 #'   \item nodes - a table of nodes for CAN
 #'   \item edges - a table of edges for CAN
 #' }
+#' 
+#' @seealso 
+#' [EQO_ga],
+#' [EQO_bls],
+#' 
 #' @export
+#' 
+#' @examples 
+#' # This may take several minutes.
+#' can = CAN("ga_c",Microbiome,trait,maxIter=100)
 
-CAN<-function(method,M,y,fraction,tm,K,pk,Nmax,amin,amax,maxIter=500,popSize=200,parallel=TRUE,monitor=FALSE){
+CAN<-function(method=NULL,M,y=NULL,fraction=0.5,tm=20,K=100,pk=NULL,Nmax=5,amin=0,amax=1,maxIter=500,popSize=200,parallel=TRUE,monitor=FALSE){
 	
-	if(missing(fraction)){fraction<-0.5}
-	if(missing(tm)){tm<-20}
-	if(missing(K)){K<-100}
-	if(missing(Nmax)){Nmax<-5}
 	if(missing(y)){method<-"ga_u"}
 	if(missing(pk)){pk<-rep(0,ncol(M))}
-	if(missing(amin)){amin<-0}
-	if(missing(amax)){amax<-1}
 
+  M = as.matrix(M)
 	size<-round(nrow(M)*fraction,digits=0)
 	
 	xv.all<-lapply(1:tm,function(t){	
