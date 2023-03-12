@@ -30,7 +30,7 @@ To that end, we can run one of the functions below to implement EQO.
 
 ```R
 EQO_bls(Microbiome,trait) # implemented by BLS
-EQO_ga("c",Microbiome,trait) # or, implemented by GA
+EQO_ga("c",Microbiome,trait,maxIter=100) # or, implemented by GA
 ```
 
 We have provided two different algorithms for implementing EQO, i.e., Boolean Least Square (BLS) and Genetic Algorithm (GA), each with its advantages and disadvantages (detailed in the next section). In the above example of GA, "c" indicates a continuous trait variable. In addition, `EQO_ga()` can also support a trait variable that is discrete or uniform. You can specify "d" for a discrete trait variable (e.g., healthy or diseased hosts) or "u" for a uniform trait variable (e.g., stable community composition across samples).
@@ -57,7 +57,7 @@ aic<-sapply(1:5,function(N){
 Secondly, we recommend illustrating your functional group with a Cross-validation-based Aggregation Network (CAN). We provide a `CAN()` function in the *mEQO* package for that. In short, this function performs the following: (1) splitting your original dataset into a test set and a validation set, (2) performing EQO with the test set and cross-validation with the validation set, 3) evaluating relative importance of individual species or pairs by repeating (1) and (2) for multiple times. Remarkably, CAN can illustrate patterns that are very different from a traditional association network such as a co-occurrence network. In CAN, each nodes still denotes a species, while the weight of an edge indicates the strength of cross-validated correlation with the functional trait when the two connected species are coarse-grained in a group. In other words, species nodes connected by a stronger edge are more likely to co-exist in a functionally cohesive group. As is shown in the following figure, species 1, 2, and 3 stand out from the cross-validation as a highly interconnected module, strongly suggesting their emergent ecological role as a group together. 
 
 ```R
-can<-CAN("ga_c",Microbiome,trait)
+can<-CAN("ga_c",Microbiome,trait,maxIter=100)
 
 nodes<-can$nodes
 nodes$color.background=c("#CF0A0A","#F8C957","#125D98","#928B8B","#C65D7B","#4E944F","#5EA3A6","#DD6B4D")
