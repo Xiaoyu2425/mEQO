@@ -13,7 +13,7 @@ EQO_bls(M, y, Nmax = 5, K = 100)
 
 \item{Nmax}{A number (default 10) specifying the maximal number of taxa allowed in the final group.}
 
-\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer.}
+\item{K}{A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K would favor faster optimization by forcing the relative abundance of the selected group to be higher.}
 }
 \value{
 A list with the following components.
@@ -31,9 +31,9 @@ towards annotation-free microbiome coarse-graining.
 \details{
 The BLS-based algorithm searches for a group of species
 which as a whole is most strongly correlated with a continuous functional trait variable.
-To run BLS more effciently, it is recommended to reduce the total number of taxa
-by removing the rare singletons (e.g., < 300 taxa in the final input) and apply
-strong regularization (e.g., Nmax<20).
+To run BLS more effciently, it is strongly recommended to reduce the total number of taxa
+by removing the rare singletons (e.g., < 200 taxa in the final input) and apply
+strong regularization (e.g., Nmax<10).
 }
 \examples{
 # This may take several minutes.
@@ -45,5 +45,4 @@ EQO_bls(Microbiome,trait)
 \seealso{
 \link{EQO_ga},
 \link{CAN},
-\link{CAN_plot}
 }

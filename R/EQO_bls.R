@@ -6,7 +6,7 @@
 #' @param M A matrix or dataframe of taxa in the microbiome (samples as rows and taxa as columns).
 #' @param y A vector of a continuous functional trait (length as number of samples). 
 #' @param Nmax A number (default 10) specifying the maximal number of taxa allowed in the final group.
-#' @param K A sufficiently large number (default 100) required for linearization by the optimizer.
+#' @param K A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K would favor faster optimization by forcing the relative abundance of the selected group to be higher.
 #' 
 #' @return A list with the following components.
 #' \itemize{
@@ -18,14 +18,13 @@
 #' 
 #' @details The BLS-based algorithm searches for a group of species
 #' which as a whole is most strongly correlated with a continuous functional trait variable.    
-#' To run BLS more effciently, it is recommended to reduce the total number of taxa
-#' by removing the rare singletons (e.g., < 300 taxa in the final input) and apply  
-#' strong regularization (e.g., Nmax<20).
+#' To run BLS more effciently, it is strongly recommended to reduce the total number of taxa
+#' by removing the rare singletons (e.g., < 200 taxa in the final input) and apply  
+#' strong regularization (e.g., Nmax<10).
 #' 
 #' @seealso 
 #' [EQO_ga],
 #' [CAN],
-#' [CAN_plot]
 #' 
 #' @references 
 #' [https://www.biorxiv.org/content/10.1101/2022.08.02.502537v1]

@@ -10,7 +10,7 @@
 #' @param y A vector or matrix of trait. y is optional when pattern is \code{"u"}. y is a vector when pattern is \code{"c"}. 
 #' @param fraction A number (default 0.5) indicating the fraction of samples to be randomly selected in the training set.
 #' @param tm A number (default 20) indicating the times of cross-validation to perform.
-#' @param K (for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer.
+#' @param K (for \code{"bls_c"}) A sufficiently large number (default 100) required for linearization by the optimizer. A smaller value of K would favor faster optimization by forcing the relative abundance of the selected group to be higher.
 #' @param Nmax A number (default 10) for regularization, specifying the maximal number of taxa allowed in the final group.
 #' @param pk (for \code{"ga_c"},\code{"ga_d"} or \code{"ga_u"}) A binary vector indicating partially known functional group based on a priori knowledge, with 1 for species forced to be included in the targeted group and 0 for the other unknown species. Length of this vector should be equal to the total number of species in the microbiome. EQO will then search on the basis of the provided partial known group without removing the designated species.
 #' @param amin A number (default 0) specifying the lower bound of average relative abundance of the final group across all samples (only applied to a uniform trait to avoid trivial solutions).
