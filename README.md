@@ -33,7 +33,7 @@ EQO_bls(Microbiome,trait) # implemented by BLS
 EQO_ga("c",Microbiome,trait,maxIter=100) # or, implemented by GA
 ```
 
-We have provided two different algorithms for implementing EQO, i.e., Boolean Least Square (BLS) and Genetic Algorithm (GA), each with its advantages and disadvantages (detailed in the next section). In the above example of GA, "c" indicates a continuous trait variable. In addition, `EQO_ga()` can also support a trait variable that is discrete or uniform. You can specify "d" for a discrete trait variable (e.g., healthy or diseased hosts) or "u" for a uniform trait variable (e.g., stable community composition across samples).
+We have provided two different algorithms for implementing EQO, i.e., Boolean Least Square (BLS) and Genetic Algorithm (GA), each with its advantages and disadvantages (detailed in the next section). In the above example of GA, "c" indicates a continuous trait variable. In addition, `EQO_ga()` can also support a trait variable that is discrete or uniform. You can specify "d" for a discrete trait variable (e.g., healthy or diseased hosts) or "u" for a uniform trait variable (e.g., stable community composition across samples). The  number of iterations here is `maxIter=100`, but a larger number of iterations would be needed for larger-scale datasets (detailed in next section). 
 
 Here, the best group of species found by the algorithm that is coupled to the trait variable is comprised of species 1, 2 and 3, as shown in the figure below. 
 
@@ -41,7 +41,7 @@ Here, the best group of species found by the algorithm that is coupled to the tr
 
 For microbiome studies, in addition to obtaining a group of species with strongest statistical power, we may be more interested in understanding which single species or what combinations of species within that group have the highest importance. 
 
-There can be two ways for that. 
+There can be two ways for that.
 
 Firstly, you can apply regularization to the algorithm by specifying *Nmax* as the maximal number of species allowed in the group. In statistics, this is often based on Akaike Information Criterion (AIC). Here, the minimal AIC is achieved at *Nmax=3*, as shown in the figure below. 
 
@@ -54,10 +54,10 @@ aic<-sapply(1:5,function(N){
 
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7dexjolgcj31900u0wfy.jpg" alt="aic" height="280" width="400" align="center" />
 
-Secondly, we recommend illustrating your functional group with a Cross-validation-based Aggregation Network (CAN). We provide a `CAN()` function in the *mEQO* package for that. In short, this function performs the following: (1) splitting your original dataset into a test set and a validation set, (2) performing EQO with the test set and cross-validation with the validation set, 3) evaluating relative importance of individual species or pairs by repeating (1) and (2) for multiple times. Remarkably, CAN can illustrate patterns that are very different from a traditional association network such as a co-occurrence network. In CAN, each node still denotes a species, while the weight of an edge indicates the strength of cross-validated correlation with the functional trait when the two connected species are coarse-grained in a group. In other words, species nodes connected by a stronger edge are more likely to co-exist in a functionally cohesive group. As is shown in the following figure, species 1, 2, and 3 stand out from the cross-validation as a highly interconnected module, strongly suggesting their emergent ecological role as a group together. 
+Secondly, especially for larger datasets, we recommend illustrating important modules of species with a Cross-validation-based Aggregation Network (CAN). We provide a `CAN()` function in the *mEQO* package for that. In short, this function performs the following: (1) splitting your original dataset into a test set and a validation set, (2) performing EQO with the test set and cross-validation with the validation set, 3) evaluating relative importance of individual species or pairs by repeating (1) and (2) for multiple times. Remarkably, CAN can illustrate patterns that are very different from a traditional association network such as a co-occurrence network. In CAN, each node still denotes a species, while the weight of an edge indicates the strength of cross-validated correlation with the functional trait when the two connected species are coarse-grained in a group. In other words, species nodes connected by a stronger edge are more likely to co-exist in a functionally cohesive group. As is shown in the following figure, species 1, 2, and 3 stand out from the cross-validation as a highly interconnected module, strongly suggesting their emergent ecological role as a group together. 
 
 ```R
-can<-CAN("ga_c",Microbiome,trait,maxIter=100,tm=10)
+can<-CAN("ga_c",Microbiome,trait,maxIter=100,tm=10)  
 
 nodes<-can$nodes
 nodes$color.background=c("#CF0A0A","#F8C957","#125D98","#928B8B","#C65D7B","#4E944F","#5EA3A6","#DD6B4D")
@@ -87,7 +87,7 @@ EQO_ga("c",Microbiome,trait,pk=c(0,0,0,1,0,0,0,0),maxIter=100)
 
 Coarse-graining of species in a microbiome, including EQO, is a combinatorial problem in nature. Unfortunately, combinatorial optimization is still one of the major open challenges in modern operational research, especially for large-scale problems. Currently, there are three possible approaches to tackle the combinatorial optimization problem in EQO, with different advantages and disadvantages.
 
-i) EQO can be reformulated as a Boolean Least Square (BLS) problem when the functional trait is continuous. We can leverage a mature commercial mixed integer programming solver, the Gurobi optimizer, to solve the BLS problem accurately. Due to its combinatorial nature, it is crucial to reduce the search space in order to solve BLS efficiently (There are in total 75,287,520 possible ways to pick 5 species from 100 species, and 17,310,309,456,440 possible ways to pick 10 species from 100 species). This can be done by either decreasing the total number of species in the microbiome `n` by filtering rare species present only in very few samples, or limiting the maximal number of species allowed to be included in the group by specifying `Nmax` in functions. The computational performance of BLS can be dependent on specific data structure, but we generally recommend `n<200` and `Nmax<10` for a personal laptop, so that BLS can be solved efficiently. 
+i) EQO can be reformulated as a Boolean Least Square (BLS) problem when the functional trait is continuous. We can leverage a mature commercial mixed integer programming solver, the Gurobi optimizer, to solve the BLS problem accurately. Due to its combinatorial nature, it is crucial to reduce the search space in order to solve BLS efficiently. This can be done by either decreasing the total number of species in the microbiome `n` by filtering rare species present only in very few samples, or limiting the maximal number of species allowed to be included in the group by specifying `Nmax` in functions  (e.g., there are in total 17,310,309,456,440 possible ways to pick 10 species from 100 species, but only 75,287,520 possible ways to pick 5 species from 100 species). The computational performance of BLS can be dependent on specific data structure, but we generally recommend `n<200` and `Nmax<10` for a personal laptop, so that BLS can be solved efficiently. 
 
 ii) Genetic algorithm (GA) can be more suitable for larger-scale problems. [GA](https://cran.r-project.org/web/packages/GA/vignettes/GA.html) has been widely used as a successful strategy for stochastic binary searching with convergence in probability. However, the rate of convergence is dependent on size and structure of spefific datasets. Below is an illustration of the accuracy of GA at different number of iterations with simulated microbiome datasets. 
 
