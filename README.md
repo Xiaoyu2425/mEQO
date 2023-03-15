@@ -41,7 +41,7 @@ Here, the best group of species found by the algorithm that is coupled to the tr
 
 For microbiome studies, in addition to obtaining a group of species with strongest statistical power, we may be more interested in understanding which single species or what combinations of species within that group have the highest importance. 
 
-We have two suggestions in this regard. 
+There can be two ways for that. 
 
 Firstly, you can apply regularization to the algorithm by specifying *Nmax* as the maximal number of species allowed in the group. In statistics, this is often based on Akaike Information Criterion (AIC). Here, the minimal AIC is achieved at *Nmax=3*, as shown in the figure below. 
 
